@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Yandex.Direct Setup</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            keyframes: {
+              'fade-in-up': {
+                '0%': {
+                  opacity: '0',
+                  transform: 'translateY(20px)'
+                },
+                '100%': {
+                  opacity: '1',
+                  transform: 'translateY(0)'
+                },
+              },
+              'blob-1': {
+                '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+              },
+              'blob-2': {
+                '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(-40px, 30px) scale(1.1)' },
+                '66%': { transform: 'translate(30px, -20px) scale(0.9)' },
+              },
+               'blob-3': {
+                '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(20px, 40px) scale(0.9)' },
+                '66%': { transform: 'translate(-30px, -30px) scale(1.1)' },
+              },
+              'float': {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-15px)' },
+              }
+            },
+            animation: {
+              'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
+              'fade-in-up-delay-1': 'fade-in-up 0.8s ease-out 0.2s forwards',
+              'fade-in-up-delay-2': 'fade-in-up 0.8s ease-out 0.4s forwards',
+              'blob-1': 'blob-1 15s ease-in-out infinite',
+              'blob-2': 'blob-2 18s ease-in-out infinite',
+              'blob-3': 'blob-3 12s ease-in-out infinite',
+              'float-1': 'float 4s ease-in-out infinite',
+              'float-2': 'float 5s ease-in-out infinite 0.5s',
+              'float-3': 'float 6s ease-in-out infinite 1s',
+            }
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.1.1",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
+    "react/": "https://esm.sh/react@^19.1.1/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
