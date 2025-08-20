@@ -87,7 +87,7 @@ const ProcessSection: React.FC = () => {
                                 </div>
 
                                 {/* Visual Block */}
-                                <div className={`w-full lg:w-5/12 h-64 flex items-center justify-center p-4 mt-4 lg:mt-0 opacity-0 animate-fade-in-up ${isEven ? 'lg:order-3' : 'lg:order-1'}`} style={{animationDelay: '0.2s'}}>
+                                <div className={`w-full lg:w-5/12 h-80 flex items-center justify-center p-4 mt-4 lg:mt-0 opacity-0 animate-fade-in-up ${isEven ? 'lg:order-3' : 'lg:order-1'}`} style={{animationDelay: '0.2s'}}>
                                     <Visual />
                                 </div>
                             </div>
