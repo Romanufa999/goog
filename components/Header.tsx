@@ -1,4 +1,3 @@
-'use client';
 
 import React, { useState } from 'react';
 import { Page } from '../App';
@@ -72,8 +71,6 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
                         <nav className="hidden md:flex items-center gap-6">
                              <NavLink page="home" current={currentPage} onNavigate={onNavigate}>Главная</NavLink>
-                             <NavLink page="blog" current={currentPage} onNavigate={onNavigate}>Блог</NavLink>
-                             <NavLink page="menu" current={currentPage} onNavigate={onNavigate}>Меню</NavLink>
                              <NavLink page="contacts" current={currentPage} onNavigate={onNavigate}>Контакты</NavLink>
                         </nav>
 
@@ -115,8 +112,6 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                     </div>
                     <nav className="flex flex-col items-center justify-center gap-8 mt-16">
                         <NavLink page="home" current={currentPage} onNavigate={onNavigate} onClick={handleMobileNavigate} className="text-3xl font-bold">Главная</NavLink>
-                        <NavLink page="blog" current={currentPage} onNavigate={onNavigate} onClick={handleMobileNavigate} className="text-3xl font-bold">Блог</NavLink>
-                        <NavLink page="menu" current={currentPage} onNavigate={onNavigate} onClick={handleMobileNavigate} className="text-3xl font-bold">Меню</NavLink>
                         <NavLink page="contacts" current={currentPage} onNavigate={onNavigate} onClick={handleMobileNavigate} className="text-3xl font-bold">Контакты</NavLink>
                     </nav>
 
