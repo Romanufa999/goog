@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import { LogoIcon } from './icons/LogoIcon';
 import ThemeSwitcher from './ThemeSwitcher';
 import { HamburgerIcon } from './icons/HamburgerIcon';
@@ -22,6 +21,7 @@ export interface PageConfig {
 
 interface HeaderProps {
     pages: PageConfig[];
+    currentPage: Page;
 }
 
 interface NavLinkProps {
@@ -52,11 +52,8 @@ const NavLink: React.FC<NavLinkProps> = ({ path, isActive, children, className, 
 };
 
 
-const Header: React.FC<HeaderProps> = ({ pages }) => {
+const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const pathname = usePathname();
-
-    const currentPage = pages.find(p => p.path === pathname)?.page ?? 'home';
 
     const closeMenu = () => {
         setIsMenuOpen(false);

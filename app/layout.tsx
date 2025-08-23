@@ -1,10 +1,12 @@
+"use client";
 
 import React from 'react';
 import Header from '../components/Header';
 import { GlobalBackground } from '../components/GlobalBackground';
 import Footer from '../components/Footer';
 import './globals.css';
-import type { PageConfig } from '../components/Header';
+import type { PageConfig, Page } from '../components/Header';
+import { usePathname } from 'next/navigation';
 
 export const metadata = {
   title: 'Yandex.Direct & Telegram Ads Setup',
@@ -24,6 +26,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname();
+  const currentPage = pages.find(p => p.path === pathname)?.page ?? 'home';
+
   return (
     <html lang="ru" className="dark">
         <head>
@@ -196,7 +201,7 @@ export default function RootLayout({
         <main className="relative min-h-screen text-gray-800 dark:text-white transition-colors duration-300 overflow-x-clip flex flex-col">
             <GlobalBackground />
             <div className="flex-grow">
-                <Header pages={pages} />
+                <Header pages={pages} currentPage={currentPage} />
                 {children}
             </div>
             <Footer pages={pages.filter(p => p.page === 'privacy' || p.page === 'personal-data')} />
