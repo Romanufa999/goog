@@ -1,8 +1,8 @@
-
-
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LogoIcon } from './icons/LogoIcon';
 import ThemeSwitcher from './ThemeSwitcher';
 import { HamburgerIcon } from './icons/HamburgerIcon';
@@ -22,7 +22,6 @@ export interface PageConfig {
 
 interface HeaderProps {
     pages: PageConfig[];
-    currentPage: Page;
 }
 
 interface NavLinkProps {
@@ -30,12 +29,12 @@ interface NavLinkProps {
     isActive: boolean;
     children: React.ReactNode;
     className?: string;
-    onClick: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+    onClick: () => void;
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ path, isActive, children, className, onClick }) => {
     return (
-        <a
+        <Link
             href={path}
             onClick={onClick}
             className={`transition-colors duration-200 relative ${
@@ -48,35 +47,34 @@ const NavLink: React.FC<NavLinkProps> = ({ path, isActive, children, className, 
             {isActive && (
                 <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-yellow-400 rounded-full"></span>
             )}
-        </a>
+        </Link>
     );
 };
 
 
-const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
+const Header: React.FC<HeaderProps> = ({ pages }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
-    const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-        e.preventDefault();
-        window.history.pushState({}, '', path);
-        // Dispatch a popstate event to trigger the App component's router
-        window.dispatchEvent(new PopStateEvent('popstate'));
-        setIsMenuOpen(false); // Close mobile menu on navigation
-    };
+    const currentPage = pages.find(p => p.path === pathname)?.page ?? 'home';
+
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    }
     
     return (
         <>
             <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
                 <div className="container mx-auto px-4 sm:px-8">
                     <div className="flex justify-between items-center h-20 bg-gray-100/60 dark:bg-black/50 backdrop-blur-md rounded-b-2xl px-6 border-b border-x border-black/10 dark:border-white/10">
-                        <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-3">
+                        <Link href="/" onClick={closeMenu} className="flex items-center gap-3">
                             <LogoIcon className="w-8 h-8 text-gray-900 dark:text-white" />
                             <span className="font-bold text-xl text-gray-900 dark:text-white hidden sm:inline">RomanAI</span>
-                        </a>
+                        </Link>
 
                         <nav className="hidden md:flex items-center gap-6">
                              {pages.map(({ page, path, shortLabel, label }) => (
-                                <NavLink key={path} path={path} isActive={currentPage === page} onClick={(e) => handleNavClick(e, path)}>
+                                <NavLink key={path} path={path} isActive={currentPage === page} onClick={closeMenu}>
                                     {shortLabel || label}
                                 </NavLink>
                              ))}
@@ -110,17 +108,17 @@ const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
             <div className={`fixed inset-0 z-[100] bg-gray-50 dark:bg-[#0a0a0a] transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                  <div className="container mx-auto px-4 sm:px-8 h-full relative">
                     <div className="flex justify-between items-center h-20">
-                         <a href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center gap-3">
+                         <Link href="/" onClick={closeMenu} className="flex items-center gap-3">
                             <LogoIcon className="w-8 h-8 text-gray-900 dark:text-white" />
                             <span className="font-bold text-xl text-gray-900 dark:text-white">RomanAI</span>
-                        </a>
+                        </Link>
                         <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700" aria-label="Close menu">
                             <CloseIcon className="w-6 h-6" />
                         </button>
                     </div>
                     <nav className="flex flex-col items-center justify-center gap-8 mt-16">
                         {pages.map(({ page, path, shortLabel, label }) => (
-                           <NavLink key={path} path={path} isActive={currentPage === page} className="text-3xl font-bold" onClick={(e) => handleNavClick(e, path)}>
+                           <NavLink key={path} path={path} isActive={currentPage === page} className="text-3xl font-bold" onClick={closeMenu}>
                                {shortLabel || label}
                            </NavLink>
                         ))}
