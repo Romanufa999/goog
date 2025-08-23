@@ -1,6 +1,8 @@
 
-import React, { useState } from 'react';
-import { Page } from '../App';
+
+"use client";
+
+import React, { useState, useEffect } from 'react';
 import { LogoIcon } from './icons/LogoIcon';
 import ThemeSwitcher from './ThemeSwitcher';
 import { HamburgerIcon } from './icons/HamburgerIcon';
@@ -9,34 +11,31 @@ import { WhatsAppIcon } from './icons/WhatsAppIcon';
 import { TelegramIcon } from './icons/TelegramIcon';
 import { PaperPlaneIcon } from './icons/PaperPlaneIcon';
 
+export type Page = 'home' | 'contacts' | 'privacy' | 'personal-data';
+
+export interface PageConfig {
+    page: Page;
+    label: string;
+    shortLabel?: string;
+    path: string;
+}
+
 interface HeaderProps {
-    onNavigate: (page: Page) => void;
-    currentPage: Page;
+    pages: PageConfig[];
+    currentPage?: Page;
 }
 
 interface NavLinkProps {
-    page: Page;
-    current: Page;
-    onNavigate: (page: Page) => void;
+    path: string;
+    isActive: boolean;
     children: React.ReactNode;
     className?: string;
-    onClick?: () => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ page, current, onNavigate, children, className, onClick }) => {
-    const isActive = page === current;
-
-    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault();
-        onNavigate(page);
-        if (onClick) {
-            onClick();
-        }
-    };
-    
+const NavLink: React.FC<NavLinkProps> = ({ path, isActive, children, className }) => {
     return (
-        <button
-            onClick={handleClick}
+        <a
+            href={path}
             className={`transition-colors duration-200 relative ${
                 isActive
                     ? 'text-gray-900 dark:text-white'
@@ -47,31 +46,45 @@ const NavLink: React.FC<NavLinkProps> = ({ page, current, onNavigate, children, 
             {isActive && (
                 <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-yellow-400 rounded-full"></span>
             )}
-        </button>
+        </a>
     );
 };
 
 
-const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
+const Header: React.FC<HeaderProps> = ({ pages, currentPage: propCurrentPage }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [currentPage, setCurrentPage] = useState(propCurrentPage);
+    const [isClient, setIsClient] = useState(false);
 
-    const handleMobileNavigate = () => {
-        setIsMenuOpen(false);
-    };
+    useEffect(() => {
+        setIsClient(true);
+        if (propCurrentPage === undefined) {
+            const currentPath = window.location.pathname;
+            const activePage = pages.find(p => p.path === currentPath);
+            if (activePage) {
+                setCurrentPage(activePage.page);
+            }
+        }
+    }, [pages, propCurrentPage]);
 
+    const activePageForRender = isClient ? currentPage : propCurrentPage;
+    
     return (
         <>
             <header className="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
                 <div className="container mx-auto px-4 sm:px-8">
                     <div className="flex justify-between items-center h-20 bg-gray-100/60 dark:bg-black/50 backdrop-blur-md rounded-b-2xl px-6 border-b border-x border-black/10 dark:border-white/10">
-                        <button onClick={() => onNavigate('home')} className="flex items-center gap-3">
+                        <a href="/" className="flex items-center gap-3">
                             <LogoIcon className="w-8 h-8 text-gray-900 dark:text-white" />
                             <span className="font-bold text-xl text-gray-900 dark:text-white hidden sm:inline">RomanAI</span>
-                        </button>
+                        </a>
 
                         <nav className="hidden md:flex items-center gap-6">
-                             <NavLink page="home" current={currentPage} onNavigate={onNavigate}>Главная</NavLink>
-                             <NavLink page="contacts" current={currentPage} onNavigate={onNavigate}>Контакты</NavLink>
+                             {pages.map(({ page, path, shortLabel, label }) => (
+                                <NavLink key={path} path={path} isActive={activePageForRender === page}>
+                                    {shortLabel || label}
+                                </NavLink>
+                             ))}
                         </nav>
 
                         <div className="flex items-center gap-4">
@@ -81,10 +94,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                                     <a href="https://wa.me/79174884832" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                         <WhatsAppIcon className="w-5 h-5" />
                                     </a>
-                                    <a href="https://t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                    <a href="https.t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                         <TelegramIcon className="w-5 h-5" />
                                     </a>
-                                    <a href="https://t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                    <a href="https.t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                         <PaperPlaneIcon className="w-5 h-5" />
                                     </a>
                                 </div>
@@ -102,17 +115,20 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             <div className={`fixed inset-0 z-[100] bg-gray-50 dark:bg-[#0a0a0a] transform transition-transform duration-300 ease-in-out ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
                  <div className="container mx-auto px-4 sm:px-8 h-full relative">
                     <div className="flex justify-between items-center h-20">
-                         <button onClick={() => { onNavigate('home'); handleMobileNavigate(); }} className="flex items-center gap-3">
+                         <a href="/" className="flex items-center gap-3">
                             <LogoIcon className="w-8 h-8 text-gray-900 dark:text-white" />
                             <span className="font-bold text-xl text-gray-900 dark:text-white">RomanAI</span>
-                        </button>
+                        </a>
                         <button onClick={() => setIsMenuOpen(false)} className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700" aria-label="Close menu">
                             <CloseIcon className="w-6 h-6" />
                         </button>
                     </div>
                     <nav className="flex flex-col items-center justify-center gap-8 mt-16">
-                        <NavLink page="home" current={currentPage} onNavigate={onNavigate} onClick={handleMobileNavigate} className="text-3xl font-bold">Главная</NavLink>
-                        <NavLink page="contacts" current={currentPage} onNavigate={onNavigate} onClick={handleMobileNavigate} className="text-3xl font-bold">Контакты</NavLink>
+                        {pages.map(({ page, path, shortLabel, label }) => (
+                           <NavLink key={path} path={path} isActive={activePageForRender === page} className="text-3xl font-bold">
+                               {shortLabel || label}
+                           </NavLink>
+                        ))}
                     </nav>
 
                     <div className="absolute bottom-12 left-0 right-0 px-4 sm:px-8">
@@ -122,10 +138,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                                 <a href="https://wa.me/79174884832" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
                                     <WhatsAppIcon className="w-6 h-6" />
                                 </a>
-                                <a href="https://t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+                                <a href="https.t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
                                     <TelegramIcon className="w-6 h-6" />
                                 </a>
-                                <a href="https://t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+                                <a href="https.t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
                                     <PaperPlaneIcon className="w-6 h-6" />
                                 </a>
                             </div>

@@ -4,18 +4,19 @@ import { YandexDirectIcon } from './icons/YandexDirectIcon';
 
 
 const Hero: React.FC = () => {
+
   return (
     <div className="relative flex items-center justify-center min-h-screen p-4 pt-20 overflow-hidden">
       
       {/* Main Content */}
       <div className="relative z-10 text-center flex flex-col items-center max-w-5xl">
         <p className="font-bold text-yellow-400 opacity-0 animate-fade-in-up">Суть Яндекс.Директ</p>
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight opacity-0 animate-fade-in-up-delay-1">
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight opacity-0 animate-fade-in-up-delay-1">
           <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-amber-500">
             Данные
           </span>
           <span className="text-gray-800 dark:text-white"> для точной рекламы</span>
-        </h1>
+        </h2>
         
         <div className="mt-8 flex flex-col items-center gap-4 opacity-0 animate-fade-in-up-delay-2">
             <div className="flex items-center justify-center gap-4 md:gap-8 flex-wrap">
@@ -54,10 +55,6 @@ const Hero: React.FC = () => {
         <p className="mt-8 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl opacity-0 animate-fade-in-up-delay-3">
           Мы используем всю мощь экосистемы Яндекса: от поисковых запросов и данных Метрики до интересов из Дзена и Музыки, чтобы показывать вашу рекламу только тем, кто с наибольшей вероятностью станет вашим клиентом.
         </p>
-
-        <button className="mt-10 px-8 py-4 bg-yellow-400 text-gray-900 font-bold text-lg rounded-full transform transition-transform duration-300 hover:scale-105 hover:bg-yellow-300 focus:outline-none focus:ring-4 focus:ring-yellow-400 focus:ring-opacity-50 opacity-0 animate-fade-in-up-delay-4">
-          Узнать про источники
-        </button>
       </div>
     </div>
   );

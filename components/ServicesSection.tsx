@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import { SeoIcon } from './icons/SeoIcon';
 import { PpcIcon } from './icons/PpcIcon';
@@ -32,7 +34,6 @@ const services = [
     },
 ];
 
-
 const ServicesSection: React.FC = () => {
     return (
         <section className="relative flex flex-col justify-center py-24 sm:py-32 p-4 sm:p-8 overflow-hidden">
@@ -52,9 +53,10 @@ const ServicesSection: React.FC = () => {
                     {services.map((service, index) => {
                         const Icon = service.icon;
                         return (
-                            <div 
+                            <a
                                 key={index} 
-                                className="flex-shrink-0 w-80 snap-start bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm rounded-2xl p-6 border border-black/10 dark:border-white/10 group hover:border-teal-400/50 transition-colors duration-300 opacity-0 animate-fade-in-up"
+                                href="/contacts.html"
+                                className="text-left flex-shrink-0 w-80 snap-start bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm rounded-2xl p-6 border border-black/10 dark:border-white/10 group hover:border-teal-400/50 transition-colors duration-300 opacity-0 animate-fade-in-up"
                                 style={{animationDelay: `${0.1 * (index + 2)}s`}}
                             >
                                 <div className="mb-4 text-teal-400 dark:text-teal-300">
@@ -62,7 +64,7 @@ const ServicesSection: React.FC = () => {
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{service.title}</h3>
                                 <p className="text-gray-600 dark:text-gray-400 text-sm">{service.description}</p>
-                            </div>
+                            </a>
                         )
                     })}
                 </div>

@@ -1,3 +1,5 @@
+
+
 import React from 'react';
 import { CrmAnimation } from './CrmAnimation';
 import { CheckCircleIcon } from './icons/CheckCircleIcon';
@@ -37,9 +39,11 @@ const LeadsSection: React.FC = () => {
             ))}
           </ul>
 
-          <button className="mt-10 px-8 py-4 bg-cyan-500 text-white font-bold text-lg rounded-full transform transition-transform duration-300 hover:scale-105 hover:bg-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-500 focus:ring-opacity-50 opacity-0 animate-fade-in-up-delay-3">
+          <a
+            href="/contacts.html"
+            className="mt-10 inline-block px-8 py-4 bg-cyan-500 text-white font-bold text-lg rounded-full transform transition-transform duration-300 hover:scale-105 hover:bg-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-500 focus:ring-opacity-50 opacity-0 animate-fade-in-up-delay-3">
             Получить консультацию
-          </button>
+          </a>
         </div>
 
         {/* Right Column: Animation */}
