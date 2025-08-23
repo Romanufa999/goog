@@ -3,6 +3,7 @@
 import React from 'react';
 import { CrmAnimation } from './CrmAnimation';
 import { CheckCircleIcon } from './icons/CheckCircleIcon';
+import Link from 'next/link';
 
 const benefits = [
     { text: "Прозрачная аналитика" },
@@ -39,11 +40,11 @@ const LeadsSection: React.FC = () => {
             ))}
           </ul>
 
-          <a
-            href="/contacts.html"
+          <Link
+            href="/contacts"
             className="mt-10 inline-block px-8 py-4 bg-cyan-500 text-white font-bold text-lg rounded-full transform transition-transform duration-300 hover:scale-105 hover:bg-cyan-400 focus:outline-none focus:ring-4 focus:ring-cyan-500 focus:ring-opacity-50 opacity-0 animate-fade-in-up-delay-3">
             Получить консультацию
-          </a>
+          </Link>
         </div>
 
         {/* Right Column: Animation */}

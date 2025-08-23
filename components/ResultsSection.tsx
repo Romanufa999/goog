@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { AnimatedGraph } from './AnimatedGraph';
+import Link from 'next/link';
 
 const ResultsSection: React.FC = () => {
   return (
@@ -22,11 +23,11 @@ const ResultsSection: React.FC = () => {
         <p className="mt-6 text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl opacity-0 animate-fade-in-up-delay-2">
          Наш подход — это полный цикл работ: от глубокого анализа вашей ниши и конкурентов до запуска, оптимизации и предоставления прозрачной отчетности.
         </p>
-        <a 
-            href="/contacts.html"
+        <Link 
+            href="/contacts"
             className="mt-10 px-8 py-4 bg-emerald-500 text-white font-bold text-lg rounded-full transform transition-transform duration-300 hover:scale-105 hover:bg-emerald-400 focus:outline-none focus:ring-4 focus:ring-emerald-500 focus:ring-opacity-50 opacity-0 animate-fade-in-up-delay-2">
           Заказать аудит
-        </a>
+        </Link>
       </div>
     </section>
   );

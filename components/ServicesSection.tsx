@@ -5,6 +5,7 @@ import { SeoIcon } from './icons/SeoIcon';
 import { PpcIcon } from './icons/PpcIcon';
 import { AnalyticsIcon } from './icons/AnalyticsIcon';
 import { SmmIcon } from './icons/SmmIcon';
+import Link from 'next/link';
 
 const services = [
     {
@@ -53,9 +54,9 @@ const ServicesSection: React.FC = () => {
                     {services.map((service, index) => {
                         const Icon = service.icon;
                         return (
-                            <a
+                            <Link
                                 key={index} 
-                                href="/contacts.html"
+                                href="/contacts"
                                 className="text-left flex-shrink-0 w-80 snap-start bg-white/50 dark:bg-slate-900/40 backdrop-blur-sm rounded-2xl p-6 border border-black/10 dark:border-white/10 group hover:border-teal-400/50 transition-colors duration-300 opacity-0 animate-fade-in-up"
                                 style={{animationDelay: `${0.1 * (index + 2)}s`}}
                             >
@@ -64,7 +65,7 @@ const ServicesSection: React.FC = () => {
                                 </div>
                                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{service.title}</h3>
                                 <p className="text-gray-600 dark:text-gray-400 text-sm">{service.description}</p>
-                            </a>
+                            </Link>
                         )
                     })}
                 </div>

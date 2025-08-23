@@ -1,6 +1,8 @@
 
+
 import React from 'react';
 import type { PageConfig } from './Header';
+import Link from 'next/link';
 
 interface FooterProps {
     pages: PageConfig[];
@@ -16,13 +18,13 @@ const Footer: React.FC<FooterProps> = ({ pages }) => {
                     </p>
                     <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
                         {pages.map(({ page, path, label }) => (
-                            <a
+                            <Link
                                 key={page}
                                 href={path}
                                 className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
                             >
                                 {label}
-                            </a>
+                            </Link>
                         ))}
                     </div>
                 </div>
