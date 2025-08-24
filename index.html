@@ -19,12 +19,8 @@
       }
     </style>
     <script>
-      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-system: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      // On page load, enforce dark theme to avoid FOUC
+      document.documentElement.classList.add('dark');
 
       // Handle SPA routing for direct navigation and reloads
       (function() {
@@ -195,7 +191,8 @@
     "react": "https://esm.sh/react@^19.1.1",
     "react-dom/": "https://esm.sh/react-dom@^19.1.1/",
     "react/": "https://esm.sh/react@^19.1.1/",
-    "next/": "https://esm.sh/next@^15.5.0/"
+    "next/": "https://esm.sh/next@^15.5.0/",
+    "tailwindcss": "https://esm.sh/tailwindcss@^4.1.12"
   }
 }
 </script>

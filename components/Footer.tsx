@@ -1,8 +1,8 @@
 
 
 import React from 'react';
-import type { PageConfig } from './Header';
 import Link from 'next/link';
+import type { PageConfig } from './Header';
 
 interface FooterProps {
     pages: PageConfig[];

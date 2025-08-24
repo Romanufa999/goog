@@ -1,9 +1,9 @@
 
 
 import React from 'react';
+import Link from 'next/link';
 import { CrmAnimation } from './CrmAnimation';
 import { CheckCircleIcon } from './icons/CheckCircleIcon';
-import Link from 'next/link';
 
 const benefits = [
     { text: "Прозрачная аналитика" },

@@ -1,8 +1,8 @@
 
 
 import React from 'react';
-import { AnimatedGraph } from './AnimatedGraph';
 import Link from 'next/link';
+import { AnimatedGraph } from './AnimatedGraph';
 
 const ResultsSection: React.FC = () => {
   return (

@@ -2,8 +2,8 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { LogoIcon } from './icons/LogoIcon';
-import ThemeSwitcher from './ThemeSwitcher';
 import { HamburgerIcon } from './icons/HamburgerIcon';
 import { CloseIcon } from './icons/CloseIcon';
 import { WhatsAppIcon } from './icons/WhatsAppIcon';
@@ -54,6 +54,7 @@ const NavLink: React.FC<NavLinkProps> = ({ path, isActive, children, className, 
 
 const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
 
     const closeMenu = () => {
         setIsMenuOpen(false);
@@ -71,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
 
                         <nav className="hidden md:flex items-center gap-6">
                              {pages.map(({ page, path, shortLabel, label }) => (
-                                <NavLink key={path} path={path} isActive={currentPage === page} onClick={closeMenu}>
+                                <NavLink key={path} path={path} isActive={pathname === path} onClick={closeMenu}>
                                     {shortLabel || label}
                                 </NavLink>
                              ))}
@@ -84,15 +85,14 @@ const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
                                     <a href="https://wa.me/79174884832" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                         <WhatsAppIcon className="w-5 h-5" />
                                     </a>
-                                    <a href="https.t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                    <a href="https://t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                         <TelegramIcon className="w-5 h-5" />
                                     </a>
-                                    <a href="https.t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                                    <a href="https://t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
                                         <PaperPlaneIcon className="w-5 h-5" />
                                     </a>
                                 </div>
                             </div>
-                            <ThemeSwitcher />
                             <button onClick={() => setIsMenuOpen(true)} className="p-2 rounded-full md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700" aria-label="Open menu">
                                 <HamburgerIcon className="w-6 h-6" />
                             </button>
@@ -115,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
                     </div>
                     <nav className="flex flex-col items-center justify-center gap-8 mt-16">
                         {pages.map(({ page, path, shortLabel, label }) => (
-                           <NavLink key={path} path={path} isActive={currentPage === page} className="text-3xl font-bold" onClick={closeMenu}>
+                           <NavLink key={path} path={path} isActive={pathname === path} className="text-3xl font-bold" onClick={closeMenu}>
                                {shortLabel || label}
                            </NavLink>
                         ))}
@@ -128,10 +128,10 @@ const Header: React.FC<HeaderProps> = ({ pages, currentPage }) => {
                                 <a href="https://wa.me/79174884832" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
                                     <WhatsAppIcon className="w-6 h-6" />
                                 </a>
-                                <a href="https.t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+                                <a href="https://t.me/romxxx" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
                                     <TelegramIcon className="w-6 h-6" />
                                 </a>
-                                <a href="https.t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+                                <a href="https://t.me/lidpotok" target="_blank" rel="noopener noreferrer" aria-label="Telegram Channel" className="p-3 rounded-full text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
                                     <PaperPlaneIcon className="w-6 h-6" />
                                 </a>
                             </div>

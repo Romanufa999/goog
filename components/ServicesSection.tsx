@@ -1,11 +1,11 @@
 
 
 import React from 'react';
+import Link from 'next/link';
 import { SeoIcon } from './icons/SeoIcon';
 import { PpcIcon } from './icons/PpcIcon';
 import { AnalyticsIcon } from './icons/AnalyticsIcon';
 import { SmmIcon } from './icons/SmmIcon';
-import Link from 'next/link';
 
 const services = [
     {
